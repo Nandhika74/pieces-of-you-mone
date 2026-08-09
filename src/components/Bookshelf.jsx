@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { BookOpen, ArrowRight, X, Sparkles, Camera } from 'lucide-react';
+import { ArrowRight, X } from 'lucide-react';
 import { sisterData } from '../data/sisterData';
 import EditablePhotoFrame from './EditablePhotoFrame';
 import { useThemeAndImage } from '../context/ThemeAndImageContext';
@@ -12,82 +11,36 @@ export default function Bookshelf() {
 
   return (
     <section
-      className="
-        relative
-        min-h-screen
-        flex
-        flex-col
-        items-center
-        justify-center
-        px-4
-        sm:px-6
-        py-20
-        sm:py-24
-        film-grain
-        border-t
-      "
-      style={{
-        borderColor: currentTheme.borderColor,
-      }}
+      className="relative min-h-screen flex flex-col items-center justify-center px-3 sm:px-6 py-24 film-grain border-t"
+      style={{ borderColor: currentTheme.borderColor }}
     >
+
       {/* ============================================================
           HEADER
       ============================================================ */}
-
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="
-          flex
-          flex-col
-          items-center
-          gap-2
-          mb-10
-          sm:mb-16
-          text-center
-        "
+        className="flex flex-col items-center gap-2 mb-12 sm:mb-16 text-center"
       >
         <span
-          className="
-            text-xs
-            font-sans-clean
-            tracking-[0.3em]
-            font-semibold
-            uppercase
-          "
-          style={{
-            color: currentTheme.accentDark,
-          }}
+          className="text-xs font-sans-clean tracking-[0.3em] font-semibold uppercase"
+          style={{ color: currentTheme.accentDark }}
         >
           CHAPTER 04 • BORROWED PAGES
         </span>
 
         <h2
-          className="
-            text-4xl
-            sm:text-6xl
-            font-serif-cinematic
-            font-light
-          "
-          style={{
-            color: currentTheme.textDark,
-          }}
+          className="text-4xl sm:text-6xl font-serif-cinematic font-light"
+          style={{ color: currentTheme.textDark }}
         >
           Things I borrowed from you.
         </h2>
 
         <p
-          className="
-            text-sm
-            font-sans-clean
-            max-w-md
-            mt-2
-            px-4
-          "
-          style={{
-            color: currentTheme.textMuted,
-          }}
+          className="text-sm font-sans-clean max-w-md mt-2"
+          style={{ color: currentTheme.textMuted }}
         >
           Books she read first, whose worlds quietly spilled into my shelf.
         </p>
@@ -96,14 +49,13 @@ export default function Bookshelf() {
       {/* ============================================================
           PHYSICAL BOOKSHELF
       ============================================================ */}
-
       <div
         className="
           relative
           w-full
           max-w-4xl
           mx-auto
-          p-4
+          p-3
           sm:p-10
           rounded-2xl
           shadow-2xl
@@ -114,68 +66,42 @@ export default function Bookshelf() {
           borderColor: currentTheme.borderColor,
         }}
       >
+
         {/* Top Wooden Shelf Trim */}
-        <div
-          className="
-            w-full
-            h-3
-            bg-black/40
-            rounded-t-lg
-            mb-6
-            sm:mb-8
-            shadow-inner
-          "
-        />
+        <div className="w-full h-3 bg-black/40 rounded-t-lg mb-6 sm:mb-8 shadow-inner" />
 
-        {/* ============================================================
-            BOOK SPINES GRID
+        {/* ========================================================
+            BOOK ROW
 
-            Mobile:
-            - Books wrap into multiple rows
-            - No horizontal scrolling
-            - Every book remains visible
-
-            Desktop:
-            - Books remain in a single row when space allows
-        ============================================================ */}
-
+            IMPORTANT:
+            - All books stay in ONE ROW.
+            - Mobile books shrink automatically.
+            - No horizontal scrolling.
+        ======================================================== */}
         <div
           className="
             flex
-            flex-wrap
             items-end
             justify-center
-            gap-x-2
-            gap-y-6
-            sm:gap-x-6
-            sm:gap-y-8
-            min-h-[260px]
-            pb-6
-            px-1
-            overflow-visible
+            gap-1
+            sm:gap-6
+            min-h-[250px]
+            sm:min-h-[260px]
+            pb-4
+            px-0
+            w-full
           "
         >
           {sisterData.books.map((book, idx) => {
             const bookKey = `bookCover_${book.id || idx}`;
-            const activeCover = getImage(
-              bookKey,
-              book.coverUrl
-            );
+            const activeCover = getImage(bookKey, book.coverUrl);
 
             return (
               <motion.div
                 key={book.id || idx}
-                initial={{
-                  opacity: 0,
-                  y: 30,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                viewport={{
-                  once: true,
-                }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{
                   duration: 0.6,
                   delay: idx * 0.1,
@@ -200,21 +126,21 @@ export default function Bookshelf() {
                   flex-shrink-0
                 "
               >
-                {/* ====================================================
-                    BOOK SPINE
-                ==================================================== */}
 
+                {/* ==================================================
+                    BOOK SPINE
+                ================================================== */}
                 <div
                   className="
-                    w-10
+                    w-[clamp(2.45rem,13vw,4rem)]
                     sm:w-16
-                    h-44
+                    h-48
                     sm:h-64
                     rounded-sm
                     flex
                     flex-col
                     justify-between
-                    p-2
+                    p-1.5
                     sm:p-3
                     text-center
                     shadow-lg
@@ -227,35 +153,27 @@ export default function Bookshelf() {
                   "
                   style={{
                     backgroundColor:
-                      book.color ||
-                      currentTheme.accentMain,
-
+                      book.color || currentTheme.accentMain,
                     boxShadow:
                       'inset -3px 0 10px rgba(0,0,0,0.4), 0 8px 20px rgba(0,0,0,0.3)',
                   }}
                 >
-                  {/* Decorative Spine Line */}
-                  <div
-                    className="
-                      w-full
-                      h-1
-                      bg-[#7B3E48]/60
-                      rounded-full
-                      my-1
-                    "
-                  />
+
+                  {/* Decorative Spine Gold Line */}
+                  <div className="w-full h-0.5 sm:h-1 bg-[#7B3E48]/60 rounded-full my-1" />
 
                   {/* Vertical Book Title */}
                   <span
                     className="
-                      text-[10px]
+                      text-[8px]
                       sm:text-sm
                       font-serif-cinematic
                       text-[#FDFCF8]
                       font-medium
                       tracking-wide
                       uppercase
-                      line-clamp-2
+                      line-clamp-3
+                      leading-tight
                     "
                     style={{
                       writingMode: 'vertical-rl',
@@ -265,25 +183,16 @@ export default function Bookshelf() {
                     {book.title}
                   </span>
 
-                  {/* Decorative Spine Line */}
-                  <div
-                    className="
-                      w-full
-                      h-1
-                      bg-[#7B3E48]/60
-                      rounded-full
-                      my-1
-                    "
-                  />
+                  {/* Bottom Spine Line */}
+                  <div className="w-full h-0.5 sm:h-1 bg-[#7B3E48]/60 rounded-full my-1" />
                 </div>
 
-                {/* ====================================================
-                    AUTHOR
-                ==================================================== */}
-
+                {/* ==================================================
+                    AUTHOR NAME
+                ================================================== */}
                 <span
                   className="
-                    text-[9px]
+                    text-[8px]
                     sm:text-[10px]
                     font-sans-clean
                     text-white/80
@@ -293,8 +202,7 @@ export default function Bookshelf() {
                     opacity-0
                     group-hover:opacity-100
                     transition-opacity
-                    text-center
-                    max-w-[60px]
+                    whitespace-nowrap
                   "
                 >
                   {book.author}
@@ -304,10 +212,9 @@ export default function Bookshelf() {
           })}
         </div>
 
-        {/* ============================================================
+        {/* ==========================================================
             BOTTOM SHELF BASE
-        ============================================================ */}
-
+        ========================================================== */}
         <div
           className="
             w-full
@@ -333,7 +240,6 @@ export default function Bookshelf() {
               text-white/80
               uppercase
               text-center
-              px-2
             "
           >
             MONE'S LIBRARY • CLICK ANY BOOK
@@ -344,19 +250,12 @@ export default function Bookshelf() {
       {/* ============================================================
           BOOK DRAWER MODAL
       ============================================================ */}
-
       <AnimatePresence>
         {activeBook && (
           <motion.div
-            initial={{
-              opacity: 0,
-            }}
-            animate={{
-              opacity: 1,
-            }}
-            exit={{
-              opacity: 0,
-            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             onClick={() => setActiveBook(null)}
             className="
               fixed
@@ -368,7 +267,6 @@ export default function Bookshelf() {
               items-center
               justify-center
               p-4
-              overflow-y-auto
             "
           >
             <motion.div
@@ -386,7 +284,7 @@ export default function Bookshelf() {
               }}
               onClick={(e) => e.stopPropagation()}
               className="
-                p-5
+                p-6
                 sm:p-8
                 rounded-2xl
                 max-w-xl
@@ -395,7 +293,8 @@ export default function Bookshelf() {
                 relative
                 border
                 shadow-2xl
-                my-4
+                max-h-[90vh]
+                overflow-y-auto
               "
               style={{
                 backgroundColor: currentTheme.cardBg,
@@ -403,15 +302,14 @@ export default function Bookshelf() {
                 borderColor: currentTheme.borderColor,
               }}
             >
+
               {/* Close Button */}
               <button
                 onClick={() => setActiveBook(null)}
                 className="
                   absolute
-                  top-3
-                  right-3
-                  sm:top-4
-                  sm:right-4
+                  top-4
+                  right-4
                   p-2
                   rounded-full
                   hover:bg-black/10
@@ -420,34 +318,17 @@ export default function Bookshelf() {
                   z-10
                 "
                 type="button"
+                aria-label="Close book"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              {/* ======================================================
-                  MODAL CONTENT
-              ====================================================== */}
+              <div className="flex flex-col sm:flex-row gap-6 items-center">
 
-              <div
-                className="
-                  flex
-                  flex-col
-                  sm:flex-row
-                  gap-6
-                  items-center
-                  sm:items-start
-                "
-              >
-                {/* Book Cover */}
-                <div
-                  className="
-                    w-32
-                    sm:w-36
-                    h-48
-                    sm:h-52
-                    flex-shrink-0
-                  "
-                >
+                {/* ==================================================
+                    BOOK COVER
+                ================================================== */}
+                <div className="w-36 h-52 flex-shrink-0">
                   <EditablePhotoFrame
                     imageKey={`bookCover_${activeBook.id}`}
                     defaultUrl={activeBook.coverUrl}
@@ -457,17 +338,11 @@ export default function Bookshelf() {
                   />
                 </div>
 
-                {/* Book Information */}
-                <div
-                  className="
-                    flex
-                    flex-col
-                    text-center
-                    sm:text-left
-                    space-y-3
-                    w-full
-                  "
-                >
+                {/* ==================================================
+                    BOOK INFORMATION
+                ================================================== */}
+                <div className="flex flex-col text-left space-y-3">
+
                   <span
                     className="
                       text-xs
@@ -506,12 +381,11 @@ export default function Bookshelf() {
                     by {activeBook.author}
                   </p>
 
-                  {/* YOU → ME Transfer Visual */}
+                  {/* YOU → ME TRANSFER */}
                   <div
                     className="
                       inline-flex
                       items-center
-                      justify-center
                       gap-3
                       px-3.5
                       py-1.5
@@ -522,21 +396,16 @@ export default function Bookshelf() {
                       font-medium
                       my-2
                       w-fit
-                      mx-auto
-                      sm:mx-0
                     "
                     style={{
-                      backgroundColor:
-                        currentTheme.tagBg,
-                      borderColor:
-                        currentTheme.borderColor,
+                      backgroundColor: currentTheme.tagBg,
+                      borderColor: currentTheme.borderColor,
                     }}
                   >
                     <span
                       className="font-bold"
                       style={{
-                        color:
-                          currentTheme.accentDark,
+                        color: currentTheme.accentDark,
                       }}
                     >
                       MONE (You)
@@ -547,15 +416,14 @@ export default function Bookshelf() {
                     <span
                       className="font-bold"
                       style={{
-                        color:
-                          currentTheme.textDark,
+                        color: currentTheme.textDark,
                       }}
                     >
                       ME
                     </span>
                   </div>
 
-                  {/* Caption */}
+                  {/* CAPTION */}
                   <p
                     className="
                       font-serif-cinematic
@@ -566,10 +434,8 @@ export default function Bookshelf() {
                       border
                     "
                     style={{
-                      backgroundColor:
-                        currentTheme.tagBg,
-                      borderColor:
-                        currentTheme.borderColor,
+                      backgroundColor: currentTheme.tagBg,
+                      borderColor: currentTheme.borderColor,
                     }}
                   >
                     “{activeBook.caption}”
@@ -583,3 +449,4 @@ export default function Bookshelf() {
     </section>
   );
 }
+
