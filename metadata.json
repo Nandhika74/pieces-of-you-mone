@@ -1,0 +1,6 @@
+{
+  "name": "Pieces of You - For Mone",
+  "description": "A cinematic digital scrapbook and interactive birthday experience for Mone.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

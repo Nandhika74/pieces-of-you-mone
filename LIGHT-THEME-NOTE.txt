@@ -1,0 +1,10 @@
+LIGHT THEME UPDATE
+
+The low-contrast gold text has been replaced with a deeper rose/berry accent (#7B3E48)
+so headings, labels, tags, buttons and captions remain clearly readable on the light
+Pinterest-style background.
+
+The fallback "celestial" palette was also made light so an old saved theme cannot
+bring back a dark card/background.
+
+Your wording and photo paths were not removed.
