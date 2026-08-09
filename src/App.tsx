@@ -1,5 +1,4 @@
-import React, { useRef } from 'react';
-
+import React, { useRef, useState } from 'react';
 import Intro from './components/Intro';
 import ChapterMenu from './components/ChapterMenu';
 
@@ -26,10 +25,9 @@ import FloralPetals from './components/FloralPetals';
 import { ThemeAndImageProvider } from './context/ThemeAndImageContext';
 import ThemeAndImageControls from './components/ThemeAndImageControls';
 
-
 export default function App() {
-
   const storyStartRef = useRef(null);
+  const [musicStarted, setMusicStarted] = React.useState(false);
 
 const musicRef = useRef(null);
   /*
@@ -40,9 +38,7 @@ const musicRef = useRef(null);
 
 
 const handleEnterStory = () => {
-  // Start music directly from the user's button interaction.
-  // This avoids browser autoplay restrictions.
-  musicRef.current?.startMusic();
+  setMusicStarted(true);
 
   if (storyStartRef.current) {
     storyStartRef.current.scrollIntoView({
@@ -80,7 +76,7 @@ const handleEnterStory = () => {
           BACKGROUND MUSIC
       ================================================================ */}
 
-      <BackgroundMusic  ref={musicRef} />
+      <BackgroundMusic start={musicStarted} />
 
 
       {/* ================================================================
