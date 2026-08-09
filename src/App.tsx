@@ -31,21 +31,28 @@ export default function App() {
 
   const storyStartRef = useRef(null);
 
-
+const musicRef = useRef(null);
   /*
   |--------------------------------------------------------------------------
   | ENTER STORY
   |--------------------------------------------------------------------------
   */
 
-  const handleEnterStory = () => {
-    if (storyStartRef.current) {
-      storyStartRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-    }
-  };
+
+const handleEnterStory = () => {
+  // Start music directly from the user's button interaction.
+  // This avoids browser autoplay restrictions.
+  musicRef.current?.startMusic();
+
+  if (storyStartRef.current) {
+    storyStartRef.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }
+};
+
+
 
 
   /*
@@ -73,7 +80,7 @@ export default function App() {
           BACKGROUND MUSIC
       ================================================================ */}
 
-      <BackgroundMusic />
+      <BackgroundMusic  ref={musicRef} />
 
 
       {/* ================================================================
